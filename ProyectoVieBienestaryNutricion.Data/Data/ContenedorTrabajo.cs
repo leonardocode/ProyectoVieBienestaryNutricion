@@ -15,9 +15,12 @@ namespace ProyectoVieBienestaryNutricion.Data.Data
             _bd = bd;
             //instancia la categoria creada
             Categoria = new CategoriaRepository(_bd);
+            Producto = new ProductoRepository(_bd);
         }
 
         public ICategoriaRepository Categoria { get; set; }
+        public IProductoRepository Producto { get; set; }
+
 
         public void Dispose()
         {

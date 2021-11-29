@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProyectoVieBienestaryNutricion.Data;
 using ProyectoVieBienestaryNutricion.Data.Data;
+using ProyectoVieBienestaryNutricion.Data.Data.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace ProyectoVieBienestaryNutricion
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddScoped<IContenedorTrabajo, ContenedorTrabajo>();
             services.AddRazorPages();
         }
 

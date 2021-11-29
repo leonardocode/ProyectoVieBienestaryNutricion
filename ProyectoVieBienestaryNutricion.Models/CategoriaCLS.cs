@@ -31,7 +31,7 @@ namespace ProyectoVieBienestaryNutricion.Models
 
         [Required(ErrorMessage = "Categoria Activa es Obligatorio, No puede estar vacio")]
         [Display(Name = "Categoria Activa")]
-        public int Activo { get; set; }
+        public bool Activo { get; set; }
 
     }
 }

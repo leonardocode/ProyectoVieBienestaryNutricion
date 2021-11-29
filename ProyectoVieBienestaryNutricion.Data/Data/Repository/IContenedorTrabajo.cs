@@ -8,6 +8,8 @@ namespace ProyectoVieBienestaryNutricion.Data.Data.Repository
     {
         ICategoriaRepository Categoria { get; set; }
 
+        IProductoRepository Producto { get; set; }
+
         void Save();
     }
 }

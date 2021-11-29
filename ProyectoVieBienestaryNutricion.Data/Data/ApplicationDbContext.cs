@@ -15,5 +15,7 @@ namespace ProyectoVieBienestaryNutricion.Data.Data
         }
         //Se agrega los repositorys creados de la aplicacion
         public DbSet<CategoriaCLS> Categoria { get; set; }
+
+        public DbSet<ProductoCLS> Producto { get; set; }
     }
 }
