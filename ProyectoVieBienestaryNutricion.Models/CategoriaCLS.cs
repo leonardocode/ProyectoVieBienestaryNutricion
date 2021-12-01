@@ -28,6 +28,10 @@ namespace ProyectoVieBienestaryNutricion.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaRegistroCategoria { get; set; }
 
+        [DataType(DataType.ImageUrl)]
+        [Display(Name = "UrlImagen")]
+        public string UrlImagen { get; set; }
+
 
         [Required(ErrorMessage = "Categoria Activa es Obligatorio, No puede estar vacio")]
         [Display(Name = "Categoria Activa")]

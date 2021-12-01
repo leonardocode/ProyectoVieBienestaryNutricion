@@ -16,10 +16,15 @@ namespace ProyectoVieBienestaryNutricion.Data.Data
             _bd = bd;
         }
 
-        public bool ActualizarProducto(ProductoCLS producto)
+        public void ActualizarProducto(ProductoCLS producto)
         {
-            _bd.Producto.Update(producto);
-            return Guardar();
+            var objDesdedb = _bd.Producto.FirstOrDefault(s => s.Id == producto.Id);
+            objDesdedb.NombreProducto = producto.NombreProducto;
+            objDesdedb.DescripcionProducto = producto.DescripcionProducto;
+            objDesdedb.FechaRegistroProducto = producto.FechaRegistroProducto;
+            objDesdedb.UrlImagen = producto.UrlImagen;
+            objDesdedb.Activo = producto.Activo;
+            objDesdedb.CategoriaId = producto.CategoriaId;
         }
 
         public bool BorrarProducto(ProductoCLS producto)

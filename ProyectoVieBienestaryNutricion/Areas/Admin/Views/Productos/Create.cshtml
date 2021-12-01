@@ -1,0 +1,82 @@
+﻿@model ProyectoVieBienestaryNutricion.Models.ProductoCLS
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> listaCategoria = ViewBag.listaCategoria;
+}
+<br />
+<br />
+<h3 class="text-center">Crear un nuevo Producto</h3>
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div class="row px-2 mx-2 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-10 offset-1 mt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="NombreProducto"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="NombreProducto" class="form-control" />
+                    <span asp-validation-for="NombreProducto" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DescripcionProducto"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="DescripcionProducto" class="form-control" />
+                    <span asp-validation-for="DescripcionProducto" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="FechaRegistroProducto"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="FechaRegistroProducto" class="form-control" />
+                    <span asp-validation-for="FechaRegistroProducto" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="UrlImagen"></label>
+                </div>
+                <div class="col-8">
+                    <input type="file" name="archivos" id="subidaArchivo" class="form-control" />
+                    <span asp-validation-for="UrlImagen" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Activo"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Activo" class="form-control" />
+                    <span asp-validation-for="Activo" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="CategoriaId"></label>
+                </div>
+                <div class="col-8">
+                    @Html.DropDownList("CategoriaId", listaCategoria, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-8 offset-4">
+                    <partial name="_VistaCrearVolver" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

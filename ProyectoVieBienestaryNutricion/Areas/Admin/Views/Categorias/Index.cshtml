@@ -24,6 +24,7 @@
                     <th>@Html.DisplayNameFor(m => m.NombreCategoria)</th>
                     <th>@Html.DisplayNameFor(m => m.DescripcionCategoria)</th>
                     <th>@Html.DisplayNameFor(m => m.FechaRegistroCategoria)</th>
+                    <th>@Html.DisplayNameFor(m => m.UrlImagen)</th>
                     <th>@Html.DisplayNameFor(m => m.Activo)</th>
                     <th>Acciones</th>
                 </tr>
@@ -31,17 +32,18 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>@Html.DisplayFor(m => item.Id)</td>
-                        <td>@Html.DisplayFor(m => item.NombreCategoria)</td>
-                        <td>@Html.DisplayFor(m => item.DescripcionCategoria)</td>
-                        <td>@Html.DisplayFor(m => item.FechaRegistroCategoria)</td>
-                        <td>@Html.DisplayFor(m => item.Activo)</td>
-                        <td>
-                            <a class="btn btn-primary" asp-area="Admin" asp-controller="Categorias" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i> Editar</a>
-                            <a class="btn btn-danger" asp-area="Admin" asp-controller="Categorias" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i> Borrar</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>@Html.DisplayFor(m => item.Id)</td>
+                    <td>@Html.DisplayFor(m => item.NombreCategoria)</td>
+                    <td>@Html.DisplayFor(m => item.DescripcionCategoria)</td>
+                    <td>@Html.DisplayFor(m => item.FechaRegistroCategoria)</td>
+                    <td>@Html.DisplayFor(m => item.UrlImagen)</td>
+                    <td>@Html.DisplayFor(m => item.Activo)</td>
+                    <td class="btn-group">
+                        <a class="btn btn-primary" asp-area="Admin" asp-controller="Categorias" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i> Editar</a>
+                        <a class="btn btn-danger ml-3" asp-area="Admin" asp-controller="Categorias" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i> Borrar</a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

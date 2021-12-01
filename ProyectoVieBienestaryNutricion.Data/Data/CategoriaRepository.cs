@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ProyectoVieBienestaryNutricion.Models;
 using System.Text;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace ProyectoVieBienestaryNutricion.Data.Data
 {
@@ -14,6 +15,15 @@ namespace ProyectoVieBienestaryNutricion.Data.Data
         public CategoriaRepository(ApplicationDbContext bd)
         {
             _bd = bd;
+        }
+
+        public IEnumerable<SelectListItem> GetListaCategorias()
+        {
+            return _bd.Categoria.Select(i => new SelectListItem()
+            {
+                Text = i.NombreCategoria,
+                Value = i.Id.ToString()
+            });
         }
 
         public bool ActualizarCategoria(CategoriaCLS categoria)

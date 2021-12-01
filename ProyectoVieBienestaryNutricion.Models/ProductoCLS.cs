@@ -28,10 +28,11 @@ namespace ProyectoVieBienestaryNutricion.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaRegistroProducto { get; set; }
 
+       
+
 
         [DataType(DataType.ImageUrl)]
-        [Display(Name = "Imagen")]
-        [Required(ErrorMessage = "Imagen del producto es obligatorio, no puede estar vacio")]
+        [Display(Name = "UrlImagen")]
         public string UrlImagen { get; set; }
 
            

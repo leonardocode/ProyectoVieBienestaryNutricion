@@ -12,7 +12,7 @@ namespace ProyectoVieBienestaryNutricion.Data.Data.Repository
         bool ExisteProducto(string nombre);
         bool ExisteProducto(int id);
         bool CrearProducto(ProductoCLS producto);
-        bool ActualizarProducto(ProductoCLS producto);
+        void ActualizarProducto(ProductoCLS producto);
         bool BorrarProducto(ProductoCLS producto);
         bool Guardar();
     }
