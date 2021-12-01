@@ -14,7 +14,7 @@ namespace ProyectoVieBienestaryNutricion.Data.Data.Repository
         bool ExisteCategoria(string nombre);
         bool ExisteCategoria(int id);
         bool CrearCategoria(CategoriaCLS categoria);
-        bool ActualizarCategoria(CategoriaCLS categoria);
+        void ActualizarCategoria(CategoriaCLS categoria);
         bool BorrarCategoria(CategoriaCLS categoria);
         bool Guardar();
     }

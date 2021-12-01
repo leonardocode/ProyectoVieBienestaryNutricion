@@ -44,8 +44,8 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CategoriaCLS ocategoriaCLS)
         {
-            if(ModelState.IsValid)
-            {
+            if (ModelState.IsValid)
+            {               
                 //subida de archivos
                 //obtenemos la ruta principal
                 string rutaPrincipal = _hostingEnvironment.WebRootPath;
@@ -72,13 +72,14 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
                     _contenedorTrabajo.Categoria.CrearCategoria(ocategoriaCLS);
                     _contenedorTrabajo.Save();
                     return RedirectToAction(nameof(Index));
-                }               
+                }
+
+
             }
             else
-            {
+            {                
                 return View(ocategoriaCLS);
-            }
-
+            }            
             return View(ocategoriaCLS);
         }
 
@@ -95,6 +96,7 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
             {
                 return View(categoria);
             }
+                     
         }
 
                 
@@ -104,16 +106,71 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
         public IActionResult Edit(CategoriaCLS ocategoriaCLS)
         {
             if (ModelState.IsValid)
-            {
+            {                
+                //subida de archivos
+                //obtenemos la ruta principal
+                string rutaPrincipal = _hostingEnvironment.WebRootPath;
+                //obtenemos el archivo
+                var archivos = HttpContext.Request.Form.Files;
+
+                //acceder a bd
+                var categoriadesdeBD = _contenedorTrabajo.Categoria.GetCategoria(ocategoriaCLS.Id);
+
+                if (archivos.Count > 0)
+                {
+                    //si si se mando un archivo, editamos imagen
+                    string nombreArchivo = Guid.NewGuid().ToString();
+                    //pasamos la ruta en donde se van aguardar los productos registrados
+                    var subidas = Path.Combine(rutaPrincipal, @"img\categorias\");
+                    //obtenemos la extension del archivo
+                    var extension = Path.GetExtension(archivos[0].FileName);
+                    //nueva extension
+                    var nuevaExtencion = Path.GetExtension(archivos[0].FileName);
+
+                    //ruta Imagen
+                    var rutaImagen = Path.Combine(rutaPrincipal, categoriadesdeBD.UrlImagen.TrimStart('\\'));
+
+                    //si la imagen ya existe reemplacela por la nueva
+                    if (System.IO.File.Exists(rutaImagen))
+                    {
+                        System.IO.File.Delete(rutaImagen);
+                    }
+
+                    //subimos nuevamente el archivo dentro de la ubicacion dada junto con la extension
+                    using (var fileStreams = new FileStream(Path.Combine(subidas, nombreArchivo + nuevaExtencion), FileMode.Create))
+                    {
+                        archivos[0].CopyTo(fileStreams);
+                    }
+
+                    ocategoriaCLS.UrlImagen = @"\img\categorias\" + nombreArchivo + nuevaExtencion;
+                    ocategoriaCLS.FechaRegistroCategoria = DateTime.Now;
+                    _contenedorTrabajo.Categoria.ActualizarCategoria(ocategoriaCLS);
+                    _contenedorTrabajo.Save();
+                    return RedirectToAction(nameof(Index));
+
+                }
+                else
+                {                    
+                    //cuando la imagen es la misma ya existe y no se reemplaza, debe conservar la de base de datos
+                    ocategoriaCLS.UrlImagen = categoriadesdeBD.UrlImagen;
+                }
+
+                //si editamos solo los campos y no la imagen
                 _contenedorTrabajo.Categoria.ActualizarCategoria(ocategoriaCLS);
                 _contenedorTrabajo.Save();
                 return RedirectToAction(nameof(Index));
+
             }
             else
-            {
+            {               
                 return View(ocategoriaCLS);
-            }
+            }            
+            return View(ocategoriaCLS);
         }
+
+
+
+
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -124,7 +181,7 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            return View(usuario);
+            return View(usuario);           
         }
 
         [HttpPost, ActionName("Delete")]

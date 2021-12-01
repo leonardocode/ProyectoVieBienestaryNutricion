@@ -26,10 +26,14 @@ namespace ProyectoVieBienestaryNutricion.Data.Data
             });
         }
 
-        public bool ActualizarCategoria(CategoriaCLS categoria)
+        public void ActualizarCategoria(CategoriaCLS categoria)
         {
-            _bd.Categoria.Update(categoria);
-            return Guardar();
+            var objDesdedb = _bd.Categoria.FirstOrDefault(s => s.Id == categoria.Id);
+            objDesdedb.NombreCategoria = categoria.NombreCategoria;
+            objDesdedb.DescripcionCategoria = categoria.DescripcionCategoria;
+            objDesdedb.FechaRegistroCategoria = categoria.FechaRegistroCategoria;
+            objDesdedb.UrlImagen = categoria.UrlImagen;
+            objDesdedb.Activo = categoria.Activo;            
         }
 
         public bool BorrarCategoria(CategoriaCLS categoria)
