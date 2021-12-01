@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using ProyectoVieBienestaryNutricion.Data.Data.Repository;
 using ProyectoVieBienestaryNutricion.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using System.Linq;
 
 namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
 {
@@ -50,11 +49,11 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
                 //obtenemos la ruta principal
                 string rutaPrincipal = _hostingEnvironment.WebRootPath;
                 //obtenemos el archivo
-                var archivos = HttpContext.Request.Form.Files;
+                var archivos = HttpContext.Request.Form.Files;                
 
                 if (ocategoriaCLS.Id == 0)
                 {
-                    //nuevo producto
+                    //nueva categoria
                     string nombreArchivo = Guid.NewGuid().ToString();
                     //pasamos la ruta en donde se van aguardar los productos registrados
                     var subidas = Path.Combine(rutaPrincipal, @"img\categorias");
