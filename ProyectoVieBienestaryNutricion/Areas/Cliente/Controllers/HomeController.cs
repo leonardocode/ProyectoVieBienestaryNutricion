@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ProyectoVieBienestaryNutricion.Data.Data.Repository;
+using ProyectoVieBienestaryNutricion.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,16 +13,23 @@ namespace ProyectoVieBienestaryNutricion.Controllers
     [Area("Cliente")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IContenedorTrabajo _contenedorTrabajo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IContenedorTrabajo contenedorTrabajo)
         {
-            _logger = logger;
+            _contenedorTrabajo = contenedorTrabajo;
         }
 
         public IActionResult Index()
         {
-            return View();
+            //enviamos todo el modelo completo
+            HomeVW homeVM = new HomeVW()
+            {
+                Sliders = _contenedorTrabajo.Slider.GetSliders(),
+                Categorias = _contenedorTrabajo.Categoria.GetCategorias(),
+                Productos = _contenedorTrabajo.Producto.GetProductos()
+            };
+            return View(homeVM);
         }
 
       

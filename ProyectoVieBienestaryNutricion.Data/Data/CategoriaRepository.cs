@@ -17,15 +17,7 @@ namespace ProyectoVieBienestaryNutricion.Data.Data
             _bd = bd;
         }
 
-        public IEnumerable<SelectListItem> GetListaCategorias()
-        {
-            return _bd.Categoria.Select(i => new SelectListItem()
-            {
-                Text = i.NombreCategoria,
-                Value = i.Id.ToString()
-            });
-        }
-
+       
         public void ActualizarCategoria(CategoriaCLS categoria)
         {
             var objDesdedb = _bd.Categoria.FirstOrDefault(s => s.Id == categoria.Id);

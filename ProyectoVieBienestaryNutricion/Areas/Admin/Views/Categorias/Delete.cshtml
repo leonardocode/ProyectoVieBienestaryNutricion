@@ -1,17 +1,17 @@
 ﻿@model ProyectoVieBienestaryNutricion.Models.CategoriaCLS
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <br />
 <br />
 <h3 class="text-center">Eliminar Categoria</h3>
-<form method="post" asp-action="Delete">
-    <div class="row px-2 mx-2 border">
+<form method="post" asp-action="Delete" enctype="multipart/form-data">
+    <div class="row px-2 mx-2 border container">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
-        <div class="col-10 offset-1 mt-4">
+        <div class="col-8  mt-4">
             <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="NombreCategoria"></label>
@@ -44,6 +44,16 @@
 
             <div class="form-group row">
                 <div class="col-4">
+                    <label asp-for="UrlImagen"></label>
+                </div>
+                <div class="col-8">
+                    <input type="file" name="archivos" id="subidaArchivo" class="form-control" />
+                    <span asp-validation-for="UrlImagen" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
                     <label asp-for="Activo"></label>
                 </div>
                 <div class="col-8">
@@ -65,12 +75,18 @@
 
                 </div>
             </div>
-            <div class="col-4 pt-3">
-                <img src="@Model.UrlImagen" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
-            </div>
+
+        </div>
+        <div class="col-4 pt-3">
+            <img src="@Model.UrlImagen" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
         </div>
     </div>
 </form>
+
+
+
+
+
 
 
 

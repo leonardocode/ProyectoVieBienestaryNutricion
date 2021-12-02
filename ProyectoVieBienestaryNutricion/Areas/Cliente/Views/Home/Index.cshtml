@@ -1,1 +1,89 @@
-﻿<h1>Vista Cliente</h1>
+﻿@model ProyectoVieBienestaryNutricion.Models.ViewModels.HomeVW
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--slider-->
+<!--<header class="row">
+    <div id="carouselExampleSlidesOnly col-12" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            @{
+                int cont = 0;
+                @foreach (var item in Model.Sliders)
+                {
+                    var itemDinamico = cont++ == 0 ? "item active" : "item";
+                    <div class="carousel-item @itemDinamico">
+                        <img src="@Url.Content(item.UrlImagen)" />
+                        <h1 class="text-dark text-center">@Html.Raw(item.NombreSlider)</h1>
+                    </div>
+
+                }
+            }}
+        </div>
+    </div>
+</header>-->
+<!--cierre slider-->
+<!--<hr />
+<div class="row mt-5">
+    <div class="col-12 col-sm-12 py-5">
+        <h1 class="text-center text-dark fuente-kavoon">Nuestras Categorias Saludables</h1>
+    </div>
+
+</div>-->
+<!--categorias-->
+<!--@if (Model.Categorias.Count() > 0)
+{
+    <div class="row">
+        @foreach (var categoria in Model.Categorias.OrderBy(o => o.Id))
+        {
+            <div class="col-3">
+                <div class="card">
+                    <img src="@categoria.UrlImagen" class="img-thumbnail" width="100%" />
+                    <div class="card-body">
+                        <h5 class="text-center fuente-latoo">@categoria.NombreCategoria</h5>
+                        <a asp-route-id="@categoria.Id" asp-action="Details" class="btn btn-success btn-large " style="border-radius:2px;">Mas Informacion</a>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </div>
+}
+else
+{
+    <p>No existen categorias</p>
+}-->
+<!--cierre categorias-->
+<!--<hr />
+<div class="row mt-5">
+    <div class="col-12 col-sm-12 py-5">
+        <h1 class="text-center text-dark fuente-kavoon">Nuestros Productos Saludables</h1>
+    </div>
+</div>-->
+<!--productos-->
+<!--@if (Model.Productos.Count() > 0)
+{
+    <div class="row">
+        @foreach (var producto in Model.Productos.OrderBy(o => o.Id))
+        {
+            <div class="col-3">
+                <div class="card">
+                    <img src="@producto.UrlImagen" class="img-thumbnail" width="100%" />
+                    <div class="card-body">
+                        <h5 class="text-center fuente-latoo">@producto.NombreProducto</h5>
+                        <a asp-route-id="@producto.Id" asp-action="Details" class="btn btn-success ml-3" style="border-radius:2px;">Mas Informacion</a>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </div>
+}
+else
+{
+    <p>No existen productos</p>
+}-->
+<!--cierre productos-->

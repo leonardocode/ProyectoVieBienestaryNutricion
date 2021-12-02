@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using ProyectoVieBienestaryNutricion.Data.Data.Repository;
 using ProyectoVieBienestaryNutricion.Models;
-using ProyectoVieBienestaryNutricion.Models.MapeoClasesBD;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +11,7 @@ using System.Threading.Tasks;
 namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ProductosController : Controller
+    public class SliderController : Controller
     {
         //contiene todos los repositorios
         private readonly IContenedorTrabajo _contenedorTrabajo;
@@ -21,62 +19,43 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
         //usamos la libreria para subirarchivos
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public ProductosController(IContenedorTrabajo contenedorTrabajo, IWebHostEnvironment hostingEnvironment)
+        public SliderController(IContenedorTrabajo contenedorTrabajo, IWebHostEnvironment hostingEnvironment)
         {
             _contenedorTrabajo = contenedorTrabajo;
             _hostingEnvironment = hostingEnvironment;
         }
 
-
         [HttpGet]
         public IActionResult Index()
         {
-            return View(_contenedorTrabajo.Producto.GetProductos().ToList());
-        }
+            return View(_contenedorTrabajo.Slider.GetSliders().ToList());
+        }       
 
-        public void llenarCategoria()
-        {
-            List<SelectListItem> listaCategoria = new List<SelectListItem>();
-            using (VieBienestaryNutricionDBContext db= new VieBienestaryNutricionDBContext())
-            {
-                listaCategoria = (from categoria in db.Categoria
-                                  where categoria.Activo == true
-                                  select new SelectListItem
-                                  {
-                                      Text = categoria.NombreCategoria,
-                                      Value = categoria.Id.ToString()
-                                  }).ToList();
-            }
-            ViewBag.listaCategoria = listaCategoria;
-        }
-              
 
         [HttpGet]
         public IActionResult Create()
-        {
-            llenarCategoria();
+        {            
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ProductoCLS productoCLS)
+        public IActionResult Create(SliderCLS sliderCLS)
         {
             if (ModelState.IsValid)
-            {
-                llenarCategoria();
+            {               
                 //subida de archivos
                 //obtenemos la ruta principal
                 string rutaPrincipal = _hostingEnvironment.WebRootPath;
                 //obtenemos el archivo
                 var archivos = HttpContext.Request.Form.Files;
 
-                if(productoCLS.Id == 0)
+                if (sliderCLS.Id == 0)
                 {
                     //nuevo producto
                     string nombreArchivo = Guid.NewGuid().ToString();
                     //pasamos la ruta en donde se van aguardar los productos registrados
-                    var subidas = Path.Combine(rutaPrincipal, @"img\productos");
+                    var subidas = Path.Combine(rutaPrincipal, @"img\slider");
                     //obtenemos la extension del archivo
                     var extension = Path.GetExtension(archivos[0].FileName);
 
@@ -86,40 +65,35 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
                         archivos[0].CopyTo(fileStreams);
                     }
 
-                    productoCLS.UrlImagen = @"\img\productos\" + nombreArchivo + extension;
-                    productoCLS.FechaRegistroProducto = DateTime.Now;
-                    _contenedorTrabajo.Producto.CrearProducto(productoCLS);
+                    sliderCLS.UrlImagen = @"\img\slider\" + nombreArchivo + extension;
+                    sliderCLS.FechaRegistroSlider = DateTime.Now;
+                    _contenedorTrabajo.Slider.CrearSlider(sliderCLS);
                     _contenedorTrabajo.Save();
                     return RedirectToAction(nameof(Index));
                 }
-                               
-                
+
+
             }
             else
-            {
-                llenarCategoria();
-                return View(productoCLS);
-            }
-            llenarCategoria();
-            return View(productoCLS);
+            {               
+                return View(sliderCLS);
+            }           
+            return View(sliderCLS);
         }
 
 
         [HttpGet]
         public IActionResult Edit(int id)
-        {
-            llenarCategoria();
-            ProductoCLS producto = new ProductoCLS();
-            producto = _contenedorTrabajo.Producto.GetProducto(id);
-            if (producto == null)
-            {
-                llenarCategoria();
+        {            
+            SliderCLS slider = new SliderCLS();
+            slider = _contenedorTrabajo.Slider.GetSlider(id);
+            if (slider == null)
+            {                
                 return NotFound();
             }
             else
-            {
-                llenarCategoria();
-                return View(producto);
+            {               
+                return View(slider);
             }
         }
 
@@ -127,11 +101,10 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(ProductoCLS productoCLS)
+        public IActionResult Edit(SliderCLS sliderCLS)
         {
             if (ModelState.IsValid)
-            {
-                llenarCategoria();
+            {                
                 //subida de archivos
                 //obtenemos la ruta principal
                 string rutaPrincipal = _hostingEnvironment.WebRootPath;
@@ -139,14 +112,14 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
                 var archivos = HttpContext.Request.Form.Files;
 
                 //acceder a bd
-                var productodesdeBD = _contenedorTrabajo.Producto.GetProducto(productoCLS.Id);
+                var productodesdeBD = _contenedorTrabajo.Slider.GetSlider(sliderCLS.Id);
 
                 if (archivos.Count > 0)
                 {
                     //si si se mando un archivo, editamos imagen
                     string nombreArchivo = Guid.NewGuid().ToString();
                     //pasamos la ruta en donde se van aguardar los productos registrados
-                    var subidas = Path.Combine(rutaPrincipal, @"img\productos\");
+                    var subidas = Path.Combine(rutaPrincipal, @"img\slider\");
                     //obtenemos la extension del archivo
                     var extension = Path.GetExtension(archivos[0].FileName);
                     //nueva extension
@@ -156,7 +129,7 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
                     var rutaImagen = Path.Combine(rutaPrincipal, productodesdeBD.UrlImagen.TrimStart('\\'));
 
                     //si la imagen ya existe reemplacela por la nueva
-                    if(System.IO.File.Exists(rutaImagen))
+                    if (System.IO.File.Exists(rutaImagen))
                     {
                         System.IO.File.Delete(rutaImagen);
                     }
@@ -167,41 +140,38 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
                         archivos[0].CopyTo(fileStreams);
                     }
 
-                    productoCLS.UrlImagen = @"\img\productos\" + nombreArchivo + nuevaExtencion;
-                    productoCLS.FechaRegistroProducto = DateTime.Now;
-                    _contenedorTrabajo.Producto.ActualizarProducto(productoCLS);
+                    sliderCLS.UrlImagen = @"\img\slider\" + nombreArchivo + nuevaExtencion;
+                    sliderCLS.FechaRegistroSlider = DateTime.Now;
+                    _contenedorTrabajo.Slider.ActualizarSlider(sliderCLS);
                     _contenedorTrabajo.Save();
                     return RedirectToAction(nameof(Index));
 
                 }
                 else
-                {
-                    llenarCategoria();
+                {                   
                     //cuando la imagen es la misma ya existe y no se reemplaza, debe conservar la de base de datos
-                    productoCLS.UrlImagen = productodesdeBD.UrlImagen;
+                    sliderCLS.UrlImagen = productodesdeBD.UrlImagen;
                 }
 
                 //si editamos solo los campos y no la imagen
-                _contenedorTrabajo.Producto.ActualizarProducto(productoCLS);
+                _contenedorTrabajo.Slider.ActualizarSlider(sliderCLS);
                 _contenedorTrabajo.Save();
                 return RedirectToAction(nameof(Index));
 
             }
             else
-            {
-                
-                llenarCategoria();                
-                return View(productoCLS);
+            {                             
+                return View(sliderCLS);
             }
-            llenarCategoria();
-            return View(productoCLS);
+            
+            return View(sliderCLS);
         }
 
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var usuario = _contenedorTrabajo.Producto.GetProducto(id);
+            var usuario = _contenedorTrabajo.Slider.GetSlider(id);
 
             if (usuario == null)
             {
@@ -215,7 +185,7 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteRegistro(int id)
         {
-            var productoDesdeDb = _contenedorTrabajo.Producto.GetProducto(id);
+            var productoDesdeDb = _contenedorTrabajo.Slider.GetSlider(id);
             string rutaDirectorioPrincipal = _hostingEnvironment.WebRootPath;
             var rutaImagen = Path.Combine(rutaDirectorioPrincipal, productoDesdeDb.UrlImagen.TrimStart('\\'));
 
@@ -230,10 +200,9 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
                 return View();
             }
 
-            _contenedorTrabajo.Producto.BorrarProducto(productoDesdeDb);
+            _contenedorTrabajo.Slider.BorrarSlider(productoDesdeDb);
             _contenedorTrabajo.Save();
             return RedirectToAction(nameof(Index));
         }
-
     }
 }

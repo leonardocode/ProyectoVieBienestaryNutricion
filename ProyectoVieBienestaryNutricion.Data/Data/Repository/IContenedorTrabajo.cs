@@ -10,6 +10,8 @@ namespace ProyectoVieBienestaryNutricion.Data.Data.Repository
 
         IProductoRepository Producto { get; set; }
 
+       ISliderRepository Slider { get; set; }
+
         void Save();
     }
 }

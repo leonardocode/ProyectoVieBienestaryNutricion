@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\img\categorias\" />
+    <Folder Include="wwwroot\img\slider\" />
     <Folder Include="wwwroot\img\productos\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\" />

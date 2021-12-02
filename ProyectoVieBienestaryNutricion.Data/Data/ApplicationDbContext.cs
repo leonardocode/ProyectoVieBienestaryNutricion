@@ -17,5 +17,7 @@ namespace ProyectoVieBienestaryNutricion.Data.Data
         public DbSet<CategoriaCLS> Categoria { get; set; }
 
         public DbSet<ProductoCLS> Producto { get; set; }
+
+       public DbSet<SliderCLS> Slider { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model ProyectoVieBienestaryNutricion.Models.ProductoCLS
+﻿@model ProyectoVieBienestaryNutricion.Models.SliderCLS
 @{
     ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,7 +6,7 @@
 
 <br />
 <br />
-<h3 class="text-center">Eliminar Producto</h3>
+<h3 class="text-center">Eliminar Slider</h3>
 <form method="post" asp-action="Delete">
     <div class="row px-2 mx-2 border container">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -14,31 +14,21 @@
         <div class="col-8  mt-4">
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="NombreProducto"></label>
+                    <label asp-for="NombreSlider"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="NombreProducto" class="form-control" />
-                    <span asp-validation-for="NombreProducto" class="text-danger"></span>
+                    <input asp-for="NombreSlider" class="form-control" />
+                    <span asp-validation-for="NombreSlider" class="text-danger"></span>
                 </div>
-            </div>
+            </div>       
 
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="DescripcionProducto"></label>
+                    <label asp-for="FechaRegistroSlider"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="DescripcionProducto" class="form-control" />
-                    <span asp-validation-for="DescripcionProducto" class="text-danger"></span>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="FechaRegistroProducto"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="FechaRegistroProducto" class="form-control" />
-                    <span asp-validation-for="FechaRegistroProducto" class="text-danger"></span>
+                    <input asp-for="FechaRegistroSlider" class="form-control" />
+                    <span asp-validation-for="FechaRegistroSlider" class="text-danger"></span>
                 </div>
             </div>
 
@@ -69,7 +59,7 @@
                             <button type="submit" class="btn btn-primary form-control" asp-route-id="@Model.Id">Eliminar</button>
                         </div>
                         <div class="col">
-                            <a asp-area="Admin" asp-controller="Productos" asp-action="Index" class="btn btn-danger form-control">Volver</a>
+                            <a asp-area="Admin" asp-controller="Slider" asp-action="Index" class="btn btn-danger form-control">Volver</a>
                         </div>
                     </div>
 
@@ -81,9 +71,6 @@
         </div>
     </div>
 </form>
-
-
-
 
 
 

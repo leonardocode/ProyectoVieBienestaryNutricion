@@ -187,14 +187,22 @@ namespace ProyectoVieBienestaryNutricion.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteRegistro(int id)
         {
-            var usuario = _contenedorTrabajo.Categoria.GetCategoria(id);
+            var categoriaDesdeDb = _contenedorTrabajo.Categoria.GetCategoria(id);
+            string rutaDirectorioPrincipal = _hostingEnvironment.WebRootPath;
+            var rutaImagen = Path.Combine(rutaDirectorioPrincipal, categoriaDesdeDb.UrlImagen.TrimStart('\\'));
 
-            if (usuario == null)
+            //si existe el archivo
+            if (System.IO.File.Exists(rutaImagen))
+            {
+                System.IO.File.Delete(rutaImagen);
+            }
+
+            if(categoriaDesdeDb == null)
             {
                 return View();
             }
 
-            _contenedorTrabajo.Categoria.BorrarCategoria(usuario);
+            _contenedorTrabajo.Categoria.BorrarCategoria(categoriaDesdeDb);
             _contenedorTrabajo.Save();
             return RedirectToAction(nameof(Index));
         }

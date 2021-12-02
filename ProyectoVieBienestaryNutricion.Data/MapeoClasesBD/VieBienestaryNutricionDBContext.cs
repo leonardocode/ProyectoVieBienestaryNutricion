@@ -28,6 +28,7 @@ namespace ProyectoVieBienestaryNutricion.Data.MapeoClasesBD
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Categoria> Categoria { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
+        public virtual DbSet<Slider> Slider { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -156,6 +157,11 @@ namespace ProyectoVieBienestaryNutricion.Data.MapeoClasesBD
                 entity.HasOne(d => d.Categoria)
                     .WithMany(p => p.Producto)
                     .HasForeignKey(d => d.CategoriaId);
+            });
+
+            modelBuilder.Entity<Slider>(entity =>
+            {
+                entity.Property(e => e.NombreSlider).IsRequired();
             });
 
             OnModelCreatingPartial(modelBuilder);
