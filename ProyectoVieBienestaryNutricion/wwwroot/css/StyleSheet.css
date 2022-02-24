@@ -1,6 +1,12 @@
-﻿.fuente-kavoon {
-    font-family: 'Kavoon', cursive;
+﻿@import url('https://fonts.googleapis.com/css2?family=Kavoon&family=Lato:ital,wght@1,900&family=Roboto:wght@100;300;500;900&display=swap');
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
-.fuente-latoo {
-    font-family: 'Lato', sans-serif;
+
+body {
+    font-family: 'Roboto', sans-serif;
+    overflow-x:hidden;
 }
+
